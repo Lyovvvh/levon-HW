@@ -3,7 +3,7 @@ import './migration.js'
 import path from "path";
 import express from 'express';
 
-import router from './routers/usersRouter.js';
+import router from './routers/index.js';
 
 import sequelize from "./clients/sequelize.mysql.js";
 
