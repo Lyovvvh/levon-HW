@@ -13,8 +13,6 @@ export default async (req, res, next) => {
 
         const decryptDate = jwt.verify(token, JWT_SECRET_FOR_TOKEN);
 
-        console.log(decryptDate);
-
         req.user = decryptDate;
 
         next()

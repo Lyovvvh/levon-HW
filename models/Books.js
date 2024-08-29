@@ -1,12 +1,9 @@
+import sequelize from "../clients/sequelize.mysql.js";
 import {Model, DataTypes} from "sequelize";
 
-import sequelize from "../clients/sequelize.mysql.js";
+class Books extends Model {}
 
-import Books from "./Books.js";
-
-class Users extends Model {}
-
-Users.init(
+Books.init(
     {
         id: {
             type: DataTypes.BIGINT.UNSIGNED,
@@ -14,34 +11,32 @@ Users.init(
             primaryKey: true,
             autoIncrement: true,
         },
-        username: {
+        title: {
             type: DataTypes.STRING(255),
             allowNull: false,
         },
-        password: {
+        author: {
             type: DataTypes.STRING(255),
             allowNull: false,
-        }
+        },
+        userId: {
+            type: DataTypes.BIGINT.UNSIGNED,
+            allowNull: false,
+        },
     },
     {
         sequelize,
         timestamps: true,
-        modelName: 'users',
-        tableName: 'users',
+        modelName: 'books',
+        tableName: 'books',
         indexes: [
             {
                 unique: true,
-                fields: ['username'],
+                fields: ['title'],
             },
         ]
     }
 );
-Users.hasMany(Books,{
-    onDelete: "CASCADE",
-    onUpdate: "CASCADE",
-    foreignKey: "userId",
-})
-Books.belongsTo(Users)
 
 
-export default Users;
+export default Books;

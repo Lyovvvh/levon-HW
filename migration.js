@@ -1,7 +1,9 @@
 import Users from './models/Users.js'
+import Books from "./models/Books.js";
 
 const models = [
     Users,
+    Books
 ];
 
 (async () => {

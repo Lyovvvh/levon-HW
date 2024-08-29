@@ -5,57 +5,70 @@ import Users from '../models/Users.js';
 
 export default {
     async registration(req, res) {
-        const {username, password} = req.body;
+        try {
+            const {username, password} = req.body;
 
-        const [param1, param2] = await Users.findOrCreate({
-            where: {username: username},
-            defaults: {
-                username: username,
-                password: md5(md5(password) + process.env.SECRET_FOR_PASSWORD),
-            }
-        })
-
-        if (!param2) {
-            res.json({
-                message: 'User is find',
-                user: param1
+            const [param1, param2] = await Users.findOrCreate({
+                where: {username: username},
+                defaults: {
+                    username: username,
+                    password: md5(md5(password) + process.env.SECRET_FOR_PASSWORD),
+                }
             })
-        } else {
-            res.status(200).send({
-                message: 'User is created successfully',
-                user: param1
+
+            if (!param2) {
+                res.json({
+                    message: 'User is find',
+                    user: param1
+                })
+            } else {
+                res.status(200).send({
+                    message: 'User is created successfully',
+                    user: param1
+                })
+            }
+        }catch (error) {
+            res.status(400).json({
+                message: "error",
+                error: error
             })
         }
-        console.log({param1, param2});
     },
     async login(req, res) {
-        const {username, password} = req.body;
+        try {
+            const {username, password} = req.body;
 
-        const user = await Users.findOne({
-            where: {username: username, password: md5(md5(password) + process.env.SECRET_FOR_PASSWORD)},
-        });
-
-        if (!user) {
-            res.status(400).json({
-                message: 'Invalid username or password'
+            const user = await Users.findOne({
+                where: {username: username, password: md5(md5(password) + process.env.SECRET_FOR_PASSWORD)},
             });
-            return;
-        }
 
-        const payload = {
-            username,
-            id: user.id
-        }
+            if (!user) {
+                res.status(400).json({
+                    message: 'Invalid username or password'
+                });
+                return;
+            }
 
-        const token = jwt.sign(payload, process.env.JWT_SECRET_FOR_TOKEN, {
-            expiresIn: '999s'
-        })
-        req.headers.authorization = token;
-        console.log(req.headers);
-        res.status(200).json({
-            message: 'User is logged in',
-            user: user
-        })
+            const payload = {
+                username,
+                id: user.id
+            }
+
+            const token = jwt.sign(payload, process.env.JWT_SECRET_FOR_TOKEN, {
+                expiresIn: '999s'
+            })
+            console.log(token)
+            req.headers.authorization = token;
+            res.status(200).json({
+                message: 'User is logged in',
+                user: user
+            })
+        }catch (error) {
+            res.status(400).json({
+                message: 'login failed',
+                error: error
+            })
+        }
     }
 
 }
