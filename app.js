@@ -1,9 +1,11 @@
 import 'dotenv/config';
-import './initTable.js'
+import './migration.js'
 import path from "path";
 import express from 'express';
 
-import router from './routers/customersRouter.js';
+import router from './routers/usersRouter.js';
+
+import sequelize from "./clients/sequelize.mysql.js";
 
 const app = express();
 
@@ -18,7 +20,7 @@ app.use(express.static(path.resolve('./views')))
 
 
 
-app.use('/theatre', router)
+app.use('/', router)
 
 app.listen(process.env.PORT, () => {
     console.log(`Listening on port ${process.env.PORT}`);

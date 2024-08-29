@@ -1,4 +1,5 @@
-import models from '../models/customersModel.js';
+import models from '../models/usersModel.js';
+import Users from '../models/Users.js';
 
 export default {
 
