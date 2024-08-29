@@ -7,11 +7,6 @@ import controller from "../controllers/customersController.js";
 
 const router = express.Router();
 
-router.get("/",(req,res)=>{
-    res.render('home')
-});
 
-
-router.post("/",validate(schema.register,'body'), await controller.customerRegistration);
 
 export default router;
