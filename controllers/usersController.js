@@ -18,8 +18,7 @@ export default {
 
             if (!param2) {
                 res.json({
-                    message: 'User is find',
-                    user: param1
+                    message: 'User already exists',
                 })
             } else {
                 res.status(200).send({
