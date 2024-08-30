@@ -21,6 +21,9 @@ Users.init(
         password: {
             type: DataTypes.STRING(255),
             allowNull: false,
+            // get() {
+            //     return undefined;
+            // }
         }
     },
     {
@@ -33,14 +36,19 @@ Users.init(
                 unique: true,
                 fields: ['username'],
             },
-        ]
+        ],
+
     }
+
 );
+
+
 Users.hasMany(Books,{
     onDelete: "CASCADE",
     onUpdate: "CASCADE",
     foreignKey: "userId",
 })
+
 Books.belongsTo(Users)
 
 
