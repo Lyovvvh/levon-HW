@@ -54,13 +54,12 @@ export default {
             }
 
             const token = jwt.sign(payload, process.env.JWT_SECRET_FOR_TOKEN, {
-                expiresIn: '999s'
+                expiresIn: '999999s'
             })
-            console.log(token)
             req.headers.authorization = token;
             res.status(200).json({
                 message: 'User is logged in',
-                user: user
+                token: token
             })
         }catch (error) {
             res.status(400).json({
@@ -69,5 +68,6 @@ export default {
             })
         }
     }
+
 
 }

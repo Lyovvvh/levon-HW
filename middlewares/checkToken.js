@@ -19,6 +19,5 @@ export default async (req, res, next) => {
     }catch (error) {
         console.log(error.message)
         res.status(501).json({ message: error.message });
-        return;
     }
 }

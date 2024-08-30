@@ -8,9 +8,7 @@ import checkToken from "../middlewares/checkToken.js";
 
 const router = express.Router();
 
-router.post("/add", checkToken ,validate(schema.book,'body'), await controller.addBook);
-router.get("/get", checkToken , await controller.getBooks);
-
-
+router.post("/add", checkToken ,validate(schema.book,'body'), controller.addBook);
+router.get("/get", checkToken ,validate(schema.getBooks, 'query'),  controller.getBooks);
 
 export default router;
