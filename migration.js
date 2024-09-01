@@ -2,12 +2,14 @@ import Users from './models/Users.js'
 import Books from "./models/Books.js";
 import Reviews from "./models/Reviews.js";
 import Favorites from "./models/Favorites.js";
+import Comments from "./models/Comments.js";
 
 const models = [
     Users,
     Books,
     Reviews,
-    Favorites
+    Favorites,
+    Comments,
 ];
 
 (async () => {
